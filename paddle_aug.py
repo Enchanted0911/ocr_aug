@@ -119,12 +119,6 @@ def warp(img, num=9):
         if 5 in selected_aug:
             new_img = cvt_color(new_img)
 
-        # if 61 in selected_aug:
-        #     new_img = jitter(new_img)
-        #
-        # if 71 in selected_aug:
-        #     new_img = add_gasuss_noise(new_img)
-
         if 6 in selected_aug:
             new_img = 255 - new_img
 
