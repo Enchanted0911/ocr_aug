@@ -30,7 +30,7 @@ def cvt_color(img):
     cvtColor
     """
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    delta = 1 * random.random() * flag()
+    delta = 0.1 * random.random() * flag()
     hsv[:, :, 2] = hsv[:, :, 2] * (1 + delta)
     new_img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return new_img
@@ -115,11 +115,11 @@ def warp(img, num=9):
         if 2 in selected_aug:
             # new_img = tia_perspective(new_img)
             new_img = blur(new_img, 7)
-        if 3 in selected_aug and img_height >= 20 and img_width >= 20:
-            new_img = get_crop(new_img)
-
-        if 4 in selected_aug:
-            new_img = blur(new_img, 5)
+        # if 3 in selected_aug and img_height >= 20 and img_width >= 20:
+        #     new_img = get_crop(new_img)
+        #
+        # if 4 in selected_aug:
+        #     new_img = blur(new_img, 5)
 
         if 5 in selected_aug:
             new_img = cvt_color(new_img)
@@ -185,8 +185,8 @@ def generate_aug_char(img_path, img_dir):
 
 
 def auto_aug():
-    l_boundary = 367
-    r_boundary = 381
+    l_boundary = 391
+    r_boundary = 396
     for j in range(l_boundary, r_boundary):
         i_num = j
         i_path = "D:\\wjs\\aug_images\\0" + str(i_num) + ".png"
@@ -216,7 +216,7 @@ def blur_all(rec_txt, parent_dir, blur_dir):
             cv2.imwrite(blur_path, blur_img)
         except Exception as e:
             print("err---------------->", e, r)
-    write_str_list_to_txt(blur_txt, parent_dir + "blur9.txt")
+    write_str_list_to_txt(blur_txt, parent_dir + "blur7.txt")
 
 
 def cvt_color_all(label_txt, parent_dir, cvt_dir):
@@ -266,11 +266,13 @@ if __name__ in '__main__':
     # aug_char(d_path)
 
 
-    dirx = "D:/wjs/ocr_temp_train/merge_data/rec_temp_train/"
+    # dirx = "D:/wjs/rec_train_nameplate/merge_data/"
+    # dirx1 = "D:/wjs/rec_train_vin/merge_data/"
     # cvt_color_all(r"D:/wjs/ocr_temp_train/merge_data/engList.txt", dirx, "cvt/")
-    blur_all(r"D:/wjs/ocr_temp_train/merge_data/rec_temp_train/engList.txt", dirx, "blur9/")
+    # blur_all(r"D:/wjs/rec_train_nameplate/merge_data/engList.txt", dirx, "blur9/")
+    # blur_all(r"D:/wjs/rec_train_vin/merge_data/engList.txt", dirx1, "blur7/")
     # auto_aug()
-    # dirx = "D:/wjs/ocr_train_vin/merge_data/"
-    # cvt_color_all(r"D:/wjs/ocr_train_vin/merge_data/new_Label.txt", dirx, "cvt_vin/")
-    # dirx1 = "D:/wjs/ocr_train_nameplate/merge_data/"
-    # cvt_color_all(r"D:/wjs/ocr_train_nameplate/merge_data/new_Label.txt", dirx1, "cvt_nameplate/")
+    dirx = "D:/wjs/ocr_train_vin/merge_data/"
+    cvt_color_all(r"D:/wjs/ocr_train_vin/merge_data/Label.txt", dirx, "cvt_vin/")
+    dirx1 = "D:/wjs/ocr_train_nameplate/merge_data/"
+    cvt_color_all(r"D:/wjs/ocr_train_nameplate/merge_data/Label.txt", dirx1, "cvt_nameplate/")
